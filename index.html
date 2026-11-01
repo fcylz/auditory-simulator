@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>🗣聞こえ方シミュレーター</title>
+<title>🗣听觉差模拟器</title>
 <style>
   :root { --panel-width: 320px; --slider-color: #0075ff; }
   * { box-sizing: border-box; }
-  body { margin: 0; font-family: 'Helvetica Neue', Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; background: #ffffff; overflow: hidden; color: #333; }
+  body { margin: 0; font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif; background: #ffffff; overflow: hidden; color: #333; }
   .hide { display: none !important; }
 
   #ui-panel {
@@ -101,18 +101,18 @@
   .other-tools-link a { text-decoration: none; color: #333; font-size: 12px; font-weight: bold; border: 2px solid #333; padding: 8px 15px; border-radius: 30px; display: inline-block; transition: 0.3s; margin: 4px; }
   .other-tools-link a:hover { background: #333; color: #fff; }
 
-  /* スライダーの色（距離表示・点線と共通） */
+  /* 滑块的颜色（与距离显示・虚线统一） */
   input[type=range] { accent-color: var(--slider-color); }
   .switch-btn:disabled { opacity: 0.5; cursor: not-allowed; }
   .meter { height: 8px; border-radius: 4px; background: #e6e6e6; overflow: hidden; margin-top: 8px; }
   .meter > div { height: 100%; width: 0; }
 
 
-  /* 切り替え通知 */
+  /* 切换提示 */
   .fallback-box { margin-top: 8px; padding: 10px 12px; border: 2px solid #d93025; border-radius: 10px; background: #fff0ee; color: #a31f14; font-size: 12.5px; font-weight: bold; line-height: 1.6; }
   .fallback-box small { display: block; margin-top: 4px; font-size: 10.5px; font-weight: normal; color: #7a3a33; word-break: break-all; }
 
-  /* ===== プレイヤー（YouTube風シークバー） ===== */
+  /* ===== 播放器（YouTube 风格的进度条） ===== */
   .player { margin: 0 0 10px; padding: 10px 12px 8px; background: #fff; border: 1px solid #e5e5e5; border-radius: 12px; }
   .player .fname { font-size: 11px; color: #777; margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-height: 15px; }
   .seek-wrap { position: relative; height: 18px; display: flex; align-items: center; }
@@ -149,186 +149,186 @@
 
 <div id="ui-panel">
   <div class="panel-header" id="panelHeader">
-    <h1 class="app-title">🗣聞こえ方シミュレーター</h1>
-    <span id="toggle-text">閉じる</span>
+    <h1 class="app-title">🗣听觉差模拟器</h1>
+    <span id="toggle-text">收起</span>
   </div>
 
   <div id="ui-content">
-    <p class="app-description">マネキンをドラッグして位置を決め、<b>ヘッドホン</b>で聞いてみてください。<br>足元の 🔺 をドラッグすると向きを変えられます。</p>
+    <p class="app-description">拖动小人确定位置，然后戴上<b>耳机</b>听听看吧。<br>拖动脚下的 🔺 可以改变朝向。</p>
 
     <div class="input-group group-a">
-      <div class="section-header"><strong>A (聞く人)</strong></div>
+      <div class="section-header"><strong>A（听的人）</strong></div>
       <div class="input-row">
-        <div class="input-item"><span class="hint">名前</span><input type="text" id="nL" placeholder="名前A"></div>
-        <div class="input-item" style="flex:0.6"><span class="hint">性別</span><select id="gL"><option value="male">男</option><option value="female" selected>女</option></select></div>
+        <div class="input-item"><span class="hint">名字</span><input type="text" id="nL" placeholder="名字A"></div>
+        <div class="input-item" style="flex:0.6"><span class="hint">性别</span><select id="gL"><option value="male">男</option><option value="female" selected>女</option></select></div>
       </div>
       <div class="input-row">
-        <div class="input-item"><span class="hint">身長 (cm)</span><input type="number" id="hL" value="158" step="0.1"></div>
-        <div class="input-item" style="flex:0.35"><span class="hint">色</span><input type="color" id="cL" class="color-picker" value="#ffcc99"></div>
+        <div class="input-item"><span class="hint">身高 (cm)</span><input type="number" id="hL" value="158" step="0.1"></div>
+        <div class="input-item" style="flex:0.35"><span class="hint">颜色</span><input type="color" id="cL" class="color-picker" value="#ffcc99"></div>
       </div>
     </div>
 
     <div class="input-group group-b">
-      <div class="section-header"><strong>B （話す人）</strong></div>
+      <div class="section-header"><strong>B（说话的人）</strong></div>
       <div class="input-row">
-        <div class="input-item"><span class="hint">名前</span><input type="text" id="nS" placeholder="名前B"></div>
-        <div class="input-item" style="flex:0.6"><span class="hint">性別</span><select id="gS"><option value="male" selected>男</option><option value="female">女</option></select></div>
+        <div class="input-item"><span class="hint">名字</span><input type="text" id="nS" placeholder="名字B"></div>
+        <div class="input-item" style="flex:0.6"><span class="hint">性别</span><select id="gS"><option value="male" selected>男</option><option value="female">女</option></select></div>
       </div>
       <div class="input-row">
-        <div class="input-item"><span class="hint">身長 (cm)</span><input type="number" id="hS" value="171.5" step="0.1"></div>
-        <div class="input-item" style="flex:0.35"><span class="hint">色</span><input type="color" id="cS" class="color-picker" value="#ffad60"></div>
+        <div class="input-item"><span class="hint">身高 (cm)</span><input type="number" id="hS" value="171.5" step="0.1"></div>
+        <div class="input-item" style="flex:0.35"><span class="hint">颜色</span><input type="color" id="cS" class="color-picker" value="#ffad60"></div>
       </div>
     </div>
 
     <div class="input-group group-s">
-      <div class="section-header"><strong>環境</strong></div>
+      <div class="section-header"><strong>环境</strong></div>
       <div class="input-item">
-        <span class="hint">残響: <span id="rvo" style="color:#333; font-weight:bold;"></span></span>
+        <span class="hint">混响：<span id="rvo" style="color:#333; font-weight:bold;"></span></span>
         <input type="range" id="rv" min="0" max="100" value="5">
       </div>
       <div class="input-item">
-        <span class="hint">声の指向性: <span id="dro" style="color:#333; font-weight:bold;"></span></span>
+        <span class="hint">声音指向性：<span id="dro" style="color:#333; font-weight:bold;"></span></span>
         <input type="range" id="dr" min="0" max="100" value="30">
       </div>
-      <p class="note" style="margin:0">指向性：Bが背を向けると高い音が減って、こもって聞こえる強さ。</p>
+      <p class="note" style="margin:0">指向性：B 背过身去时高音减少、听起来发闷的程度。</p>
     </div>
 
     <div style="padding: 0 5px;">
-      <span class="hint">📍 Bの位置（Aから見て）</span>
+      <span class="hint">📍 B 的位置（从 A 看过去）</span>
       <div class="anim-controls" style="margin-bottom:10px">
         <button class="btn-anim" data-pre="front">正面</button>
-        <button class="btn-anim" data-pre="right">右隣</button>
-        <button class="btn-anim" data-pre="left">左隣</button>
-        <button class="btn-anim" data-pre="back">真後ろ</button>
-        <button class="btn-anim" data-pre="backR">右斜め後ろ</button>
-        <button class="btn-anim" data-pre="far">3m先</button>
-        <button class="btn-anim" id="faceEach">お互い向き合う</button>
+        <button class="btn-anim" data-pre="right">右侧</button>
+        <button class="btn-anim" data-pre="left">左侧</button>
+        <button class="btn-anim" data-pre="back">正后方</button>
+        <button class="btn-anim" data-pre="backR">右后方</button>
+        <button class="btn-anim" data-pre="far">前方 3m</button>
+        <button class="btn-anim" id="faceEach">面对面</button>
       </div>
     </div>
 
     <div class="input-group group-s">
-    <div class="section-header"><strong>しゃべらせる</strong></div>
+    <div class="section-header"><strong>说话方式</strong></div>
     <div class="anim-controls">
-      <button id="tabTts" class="btn-anim sel">読み上げ</button>
-      <button id="tabMic" class="btn-anim">マイク</button>
-      <button id="tabFile" class="btn-anim">音声ファイル</button>
+      <button id="tabTts" class="btn-anim sel">朗读</button>
+      <button id="tabMic" class="btn-anim">麦克风</button>
+      <button id="tabFile" class="btn-anim">音频文件</button>
     </div>
 
     <div id="paneTts">
-      <textarea id="text" placeholder="ひらがな・カタカナで入力">もしもーし。きこえてる？</textarea>
-      <p class="note" style="margin:4px 0 0">※漢字は入力できません。日本語はひらがな・カタカナ、韓国語はハングルで入力してください。</p>
+      <textarea id="text" placeholder="请用平假名・片假名输入">もしもーし。きこえてる？</textarea>
+      <p class="note" style="margin:4px 0 0">※不能输入汉字。日语请用平假名・片假名，韩语请用谚文输入。</p>
       <div style="margin-top:8px">
         <select id="engine">
-          <option value="fm" selected>WebAudio合成（ロボット声・標準）</option>
-          <option value="speech">ブラウザ読み上げ（WebSpeechAPI）</option>
+          <option value="fm" selected>WebAudio 合成（机械音・标准）</option>
+          <option value="speech">浏览器朗读（WebSpeechAPI）</option>
         </select>
       </div>
 
       <div id="speechBox" class="hide" style="margin-top:8px">
         <div class="input-item">
-          <span class="hint">声の種類</span>
-          <select id="wsVoice"><option value="">自動（日本語の声）</option></select>
+          <span class="hint">声音类型</span>
+          <select id="wsVoice"><option value="">自动（日语声线）</option></select>
         </div>
         <div class="input-item" style="margin-top:8px">
-          <span class="hint">話す速さ: <span id="wsRateo" style="color:#333; font-weight:bold;"></span></span>
+          <span class="hint">语速：<span id="wsRateo" style="color:#333; font-weight:bold;"></span></span>
           <input type="range" id="wsRate" min="50" max="200" value="100">
         </div>
         <div class="input-item" style="margin-top:8px">
-          <span class="hint">声の高さ: <span id="wsPitcho" style="color:#333; font-weight:bold;"></span></span>
+          <span class="hint">音调：<span id="wsPitcho" style="color:#333; font-weight:bold;"></span></span>
           <input type="range" id="wsPitch" min="0" max="200" value="100">
         </div>
-        <p class="note">端末の読み上げ音声（WebSpeechAPI）を、タブ音声の共有経由で取り込み、Bの位置から聞こえるように変換します。初回は共有ダイアログが出るので、<b>「このタブ」を選び「タブの音声も共有」にチェック</b>してください。<br>
-        ⚠️ ブラウザや端末によっては上手くいかないことがあります（音が出ない・元の声が重なって聞こえる・スマホ非対応など）。その場合は、上の選択肢から<b>「WebAudio合成」</b>を使ってください。共有に失敗したときは自動でWebAudio合成に切り替わります。</p>
+        <p class="note">会把设备的朗读语音（WebSpeechAPI）通过标签页音频共享采集进来，转换成从 B 的位置听到的效果。首次会弹出共享对话框，<b>选择「这个标签页」并勾选「同时分享标签页音频」</b>。<br>
+        ⚠️ 根据浏览器与设备的不同，可能无法正常工作（没有声音・与原声重叠・手机不支持等）。这种情况下请从上面的选项中选择<b>「WebAudio 合成」</b>。若共享失败时会自动切换到 WebAudio 合成。</p>
       </div>
 
       <div id="fmBox" style="margin-top:8px">
-        <span class="hint">言語</span>
+        <span class="hint">语言</span>
         <div class="anim-controls" style="margin-bottom:8px">
-          <button id="langJa" class="btn-anim sel">日本語</button>
+          <button id="langJa" class="btn-anim sel">日语</button>
           <button id="langKo" class="btn-anim">한국어</button>
         </div>
-        <span class="hint">平均的な声の高さ</span>
+        <span class="hint">平均音调</span>
         <div class="anim-controls" style="margin-bottom:8px">
-          <button id="f0M" class="btn-anim sel">男性（約120Hz）</button>
-          <button id="f0F" class="btn-anim">女性（約220Hz）</button>
+          <button id="f0M" class="btn-anim sel">男性（约 120Hz）</button>
+          <button id="f0F" class="btn-anim">女性（约 220Hz）</button>
         </div>
         <div class="input-item">
-          <span class="hint">声の高さ: <span id="pitcho" style="color:#333; font-weight:bold;"></span></span>
+          <span class="hint">音调：<span id="pitcho" style="color:#333; font-weight:bold;"></span></span>
           <input type="range" id="pitch" min="90" max="300" value="120">
         </div>
         <div class="input-item">
-          <span class="hint">話す速さ: <span id="rateo" style="color:#333; font-weight:bold;"></span></span>
+          <span class="hint">语速：<span id="rateo" style="color:#333; font-weight:bold;"></span></span>
           <input type="range" id="rate" min="50" max="200" value="100">
         </div>
-        <p class="note">ブラウザ内で合成するロボット風の声です。日本語（ひらがな・カタカナ・ローマ字・数字）と韓国語（ハングル）を読めます。漢字は入力できません。</p>
+        <p class="note">这是在浏览器内合成的机械风声线。可朗读日语（平假名・片假名・罗马字・数字）与韩语（谚文）。不能输入汉字。</p>
       </div>
 
       <div id="fallbackNote" class="fallback-box hide"></div>
 
-      <button id="speak" class="switch-btn">▶ 再生</button>
+      <button id="speak" class="switch-btn">▶ 播放</button>
     </div>
 
     <div id="paneMic" class="hide">
-      <button id="recBtn" class="switch-btn" style="margin-top:0">🎤 録音する（最大30秒）</button>
+      <button id="recBtn" class="switch-btn" style="margin-top:0">🎤 录音（最长 30 秒）</button>
       <div class="meter" style="height:5px;margin-top:6px"><div id="recBar" style="background:#d93025"></div></div>
-      <div class="note" id="recInfo" style="margin-top:4px">録音した声は、下のプレイヤーで再生できます。</div>
-      <p class="note">あなたの声が、Bの位置から聞こえるように変換されます。<b>ハウリング防止のためヘッドホン必須</b>。<br> ※入力されたテキストやマイク音声は、お使いの端末（ブラウザ）内でのみ処理され、外部サーバーに保存されることはありません。
+      <div class="note" id="recInfo" style="margin-top:4px">录好的声音可以在下方的播放器中播放。</div>
+      <p class="note">你的声音会被转换成从 B 的位置传来的效果。<b>为防止啸叫，请务必佩戴耳机</b>。<br> ※输入的文本与麦克风音频仅在你的设备（浏览器）内处理，不会保存到外部服务器。
 </p>
     </div>
 
     <div id="paneFile" class="hide">
       <input type="file" id="file" accept="audio/*,.mp3,.m4a,.aac,.wav,.ogg,.oga,.opus,.flac,.weba,.webm">
-      <p class="note">選んだ音声を、Bの声として再生します。<br> ※入力されたテキストやマイク音声は、お使いの端末（ブラウザ）内でのみ処理され、外部サーバーに保存されることはありません。</p>
+      <p class="note">会把所选音频作为 B 的声音播放。<br> ※输入的文本与麦克风音频仅在你的设备（浏览器）内处理，不会保存到外部服务器。</p>
     </div>
 
     <div id="playerBox" class="player hide">
-      <div class="fname" id="fname">ファイルが選ばれていません</div>
+      <div class="fname" id="fname">尚未选择文件</div>
       <div class="seek-wrap"><input type="range" class="seek" id="seek" min="0" max="1000" value="0" step="1" disabled aria-label="再生位置"></div>
       <div class="player-ctrl">
-        <button id="pPlay" class="pbtn" disabled aria-label="再生/一時停止">▶</button>
+        <button id="pPlay" class="pbtn" disabled aria-label="播放/暂停">▶</button>
         <button id="pStop" class="pbtn sub" disabled aria-label="停止">■</button>
         <span class="ptime"><span id="tCur">0:00</span> / <span id="tDur">0:00</span></span>
-        <span class="pvol" title="再生音量">🔊<input type="range" id="pVol" min="0" max="100" value="100" aria-label="音量"></span>
+        <span class="pvol" title="播放音量">🔊<input type="range" id="pVol" min="0" max="100" value="100" aria-label="音量"></span>
       </div>
     </div>
 
     <div class="anim-controls" style="align-items:center">
-      <label class="check" style="flex:1"><input type="checkbox" id="loop">ループ再生</label>
+      <label class="check" style="flex:1"><input type="checkbox" id="loop">循环播放</label>
       <button id="stop" class="btn-anim" style="flex:1">■ 停止</button>
     </div>
     <div class="status" id="status" style="margin-top:0"></div>
     </div>
 
-    <button class="switch-btn" id="swapAB" style="margin-top:0">🔄 AとBを入れ替える</button>
+    <button class="switch-btn" id="swapAB" style="margin-top:0">🔄 交换 A 与 B</button>
 
     <div class="info-box">
-      <div class="info-row"><span class="info-label">📏 身長差</span><span class="info-value"><span id="rHdiff">-</span><span class="unit">cm</span></span></div>
-      <div class="info-row"><span class="info-label">🔊 距離（口→耳）</span><span class="info-value" id="rDist">-</span></div>
-      <div class="info-row"><span class="info-label">🧭 Aから見た方向</span><span class="info-value" id="rAz">-</span></div>
-      <div class="info-row"><span class="info-label">↕️ 高さ差（口−耳）</span><span class="info-value" id="rDh">-</span></div>
+      <div class="info-row"><span class="info-label">📏 身高差</span><span class="info-value"><span id="rHdiff">-</span><span class="unit">cm</span></span></div>
+      <div class="info-row"><span class="info-label">🔊 距离（嘴→耳）</span><span class="info-value" id="rDist">-</span></div>
+      <div class="info-row"><span class="info-label">🧭 从 A 看到的方向</span><span class="info-value" id="rAz">-</span></div>
+      <div class="info-row"><span class="info-label">↕️ 高度差（嘴−耳）</span><span class="info-value" id="rDh">-</span></div>
       <div class="info-row"><span class="info-label">📐 仰角</span><span class="info-value" id="rEl">-</span></div>
-      <div class="info-row"><span class="info-label">⏱️ 声の到達遅れ</span><span class="info-value" id="rDelay">-</span></div>
-      <div class="info-row"><span class="info-label">🗣️ Bの向き</span><span class="info-value" id="rFace">-</span></div>
+      <div class="info-row"><span class="info-label">⏱️ 声音到达延迟</span><span class="info-value" id="rDelay">-</span></div>
+      <div class="info-row"><span class="info-label">🗣️ B 的朝向</span><span class="info-value" id="rFace">-</span></div>
     </div>
 
     <div id="info-container">
       <button class="share-btn" id="shareBtn">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
-        </svg>で結果をシェアする
+        </svg> 分享结果
       </button>
 
       <div class="other-tools-link">
-        <p style="font-size: 10px; color: #888; margin-bottom: 8px;">こちらもチェック❣🤩</p>
-        <a href="https://qwertyaz111.github.io/my-site-hub/">ツール・シミュレーター一覧</a>
+        <p style="font-size: 10px; color: #888; margin-bottom: 8px;">顺便也看看这些❣🤩</p>
+        <a href="https://qwertyaz111.github.io/my-site-hub/">工具・模拟器合集</a>
       </div>
       <div class="usage-notes">
-        HRTF立体音響・距離減衰・到達遅れ・高音の減衰・残響・身長差による上下の方向を計算しています。<br>
-        距離や向きを変えながら、聞こえ方の違いを試してみてください。
+        正在计算 HRTF 立体声・距离衰减・到达延迟・高音衰减・混响・由身高差带来的上下方向。<br>
+        一边改变距离与朝向，一边试试听起来有什么不同吧。
       </div>
       <div class="usage-notes" style="margin-top:8px">
-        スクショ投稿や加工、トレース等はご自由にお楽しみください。<br>
-        ※営利目的や商用利用はご遠慮ください。
+        截图分享、二次加工、临摹描图等都可以随意使用。<br>
+        ※请勿用于营利、商业用途。
       </div>
     </div>
   </div>
@@ -341,11 +341,11 @@ import * as THREE from 'https://unpkg.com/three@0.158.0/build/three.module.js';
 
 const $ = id => document.getElementById(id);
 
-/* ======================= 状態 ======================= */
+/* ======================= 状态 ======================= */
 const SPEED_OF_SOUND = 343;
-const EAR_OFF = 0.10, MOUTH_OFF = 0.13;      // 身長から耳・口までの目安 [m]
-const L = { x: 0, z: 0, a: Math.PI };         // A（聞く人）: a は向き(rad)。前方 = (sin a, cos a)
-const P = { x: 0.7, z: 0, a: 0 };             // B（話す人）
+const EAR_OFF = 0.10, MOUTH_OFF = 0.13;      // 从身高推算到耳朵・嘴巴位置的参考值 [m]
+const L = { x: 0, z: 0, a: Math.PI };         // A（听的人）：a 为朝向(rad)。前方 = (sin a, cos a)
+const P = { x: 0.7, z: 0, a: 0 };             // B（说话的人）
 const heights = { L: 158, S: 171.5 };
 const genders = { L: 'female', S: 'male' };
 const colors = { L: '#ffcc99', S: '#ffad60' };
@@ -382,7 +382,7 @@ function ensureAudio() {
   panner = ac.createPanner();
   panner.panningModel = 'HRTF';
   panner.distanceModel = 'inverse';
-  panner.refDistance = 1; panner.rolloffFactor = 0;   // 距離減衰は自前で計算
+  panner.refDistance = 1; panner.rolloffFactor = 0;   // 距离衰减由自己计算
   comp = ac.createDynamicsCompressor();
   voiceIn.connect(lp); lp.connect(dly); dly.connect(dg); dg.connect(panner); panner.connect(comp);
 
@@ -404,7 +404,7 @@ function setPos(node, x, y, z) {
 
 
 
-/* ======================= 幾何の計算 ======================= */
+/* ======================= 几何计算 ======================= */
 function compute() {
   const earY = heights.L / 100 - EAR_OFF;
   const mouthY = heights.S / 100 - MOUTH_OFF;
@@ -412,12 +412,12 @@ function compute() {
   const hd = Math.hypot(dx, dz);
   const d = Math.max(Math.hypot(hd, dy), 0.15);
 
-  // 聞く人から見た相対方位
+  // 从听的人看到的相对方位
   const f = fwd(L), r = [-f[1], f[0]];
-  const az = Math.atan2(dx*r[0] + dz*r[1], dx*f[0] + dz*f[1]);   // 0:前 +:右
+  const az = Math.atan2(dx*r[0] + dz*r[1], dx*f[0] + dz*f[1]);   // 0:前方 +:右侧
   const el = Math.atan2(dy, hd);
 
-  // 話す人の口が聞く人の方を向いているか (-1:真後ろ 1:正面)
+  // 说话者的嘴是否朝向听的人 (-1:正后方 1:正面)
   const sf = fwd(P);
   const toL = hd > 1e-6 ? [-dx/hd, -dz/hd] : [sf[0], sf[1]];
   const cosPhi = sf[0]*toL[0] + sf[1]*toL[1];
@@ -429,10 +429,10 @@ function describeAz(az) {
   const a = Math.abs(deg(az));
   const side = az >= 0 ? '右' : '左';
   if (a < 20) return '正面';
-  if (a < 65) return side + '斜め前';
-  if (a < 115) return side + '真横';
-  if (a < 160) return side + '斜め後ろ';
-  return '真後ろ';
+  if (a < 65) return side + '斜前方';
+  if (a < 115) return side + '正侧方';
+  if (a < 160) return side + '斜后方';
+  return '正后方';
 }
 
 function updateAudio(c) {
@@ -440,7 +440,7 @@ function updateAudio(c) {
   const dirAmt = $('dr').value / 100;
   const rvAmt = $('rv').value / 100;
 
-  // 聞く人（耳の位置と向き）
+  // 听的人（耳朵的位置与朝向）
   const lf = fwd(L);
   const ls = ac.listener;
   if (ls.positionX) {
@@ -452,29 +452,29 @@ function updateAudio(c) {
     ls.setOrientation(lf[0], 0, lf[1], 0, 1, 0);
   }
 
-  // 話す人（口の位置）
+  // 说话的人（嘴的位置）
   setPos(panner, P.x, c.mouthY, P.z);
 
-  // 距離による音量（1/r、0.5m以内は一定）
-  const front = (1 + c.cosPhi) / 2;                    // 0(背中)〜1(正面)
+  // 随距离变化的音量（1/r，0.5m 以内保持恒定）
+  const front = (1 + c.cosPhi) / 2;                    // 0(背后)〜1(正面)
   const dirGain = 1 - dirAmt * 0.45 * (1 - front);
   const gain = Math.min(1, 0.5 / c.d) * dirGain;
   setParam(dg.gain, gain);
 
-  // 到達遅れ
+  // 到达延迟
   setParam(dly.delayTime, c.d / SPEED_OF_SOUND, 0.06);
 
-  // 高音の減衰：声の指向性 + 空気吸収
+  // 高音衰减：声音的指向性 + 空气吸收
   const cutDir = 20000 - (20000 - 1200) * dirAmt * Math.pow(1 - front, 1.2);
   const cutAir = 20000 / (1 + c.d * 0.18);
   setParam(lp.frequency, Math.max(500, Math.min(cutDir, cutAir)));
 
-  // 残響：拡散音は距離に依らず一定 → 遠いほど直接音との比率が増える
+  // 混响：扩散声不随距离变化 → 越远，相对直达声的比例越大
   setParam(rvSend.gain, 0.10 * rvAmt);
   setParam(rvOut.gain, 1.0);
 }
 
-/* ======================= 表示 ======================= */
+/* ======================= 显示 ======================= */
 function updateReadout(c) {
   $('rHdiff').textContent = Math.abs(heights.L - heights.S).toFixed(1);
   const u = t => `<span class="unit">${t}</span>`;
@@ -483,15 +483,15 @@ function updateReadout(c) {
   const dh = c.dy * 100;
   $('rDh').innerHTML = Math.abs(Math.round(dh)) + u('cm ' + (dh >= 0 ? '上' : '下'));
   const e = deg(c.el);
-  $('rEl').innerHTML = Math.abs(e) < 3 ? 'ほぼ水平' : Math.abs(e).toFixed(0) + u('° ' + (e > 0 ? '上から' : '下から'));
+  $('rEl').innerHTML = Math.abs(e) < 3 ? '基本水平' : Math.abs(e).toFixed(0) + u('° ' + (e > 0 ? '从上方' : '从下方'));
   $('rDelay').innerHTML = (c.d / SPEED_OF_SOUND * 1000).toFixed(1) + u('ms');
   const ph = deg(Math.acos(clamp(c.cosPhi, -1, 1)));
-  $('rFace').textContent = ph < 30 ? 'こちらを向いている' : ph < 100 ? '横向き' : '背を向けている';
+  $('rFace').textContent = ph < 30 ? '朝向这边' : ph < 100 ? '侧身' : '背过身去';
 }
 
 
 
-/* ======================= 3D シーン ======================= */
+/* ======================= 3D 场景 ======================= */
 const container = $('canvas-container');
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xffffff);
@@ -531,7 +531,7 @@ function makeTextSprite(w, h, scaleX, plain) {
   return sp;
 }
 
-/* ---------- マネキン ---------- */
+/* ---------- 人偶 ---------- */
 function buildFigure(color, hCm, gender) {
   const group = new THREE.Group();
   const h = hCm * 0.01;
@@ -601,7 +601,7 @@ function buildPerson(who) {
   const root = new THREE.Group();
   root.add(buildFigure(col, hCm, genders[who]));
 
-  // 足元のリング・向きの矢印・向きハンドル
+  // 脚下的圆环・朝向箭头・朝向手柄
   const accent = new THREE.Color(col).multiplyScalar(0.8);
   const ring = new THREE.Mesh(new THREE.RingGeometry(0.27, 0.31, 48), new THREE.MeshBasicMaterial({ color: accent, side: THREE.DoubleSide, transparent: true, opacity: 0.9 }));
   ring.rotation.x = -Math.PI / 2; ring.position.y = 0.012; root.add(ring);
@@ -627,14 +627,14 @@ function buildPerson(who) {
   bodyHits = [people.L, people.S].filter(Boolean).map(p => p.bodyHit);
 }
 
-/* ---------- 声の経路（Bの口 → Aの耳）と距離表示 ---------- */
+/* ---------- 声音的路径（B 的嘴 → A 的耳朵）与距离显示 ---------- */
 const pathMat = new THREE.MeshBasicMaterial({ color: 0xff9f1c, depthTest: false, transparent: true, opacity: 0.95 });
 const pathMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.01, 0.01, 1, 8), pathMat);
 const pathHead = new THREE.Mesh(new THREE.ConeGeometry(0.035, 0.1, 14), pathMat);
 pathMesh.renderOrder = 5; pathHead.renderOrder = 5;
 scene.add(pathMesh); scene.add(pathHead);
 
-const SLIDER_COLOR = '#0075ff';   // スライダー（CSSの --slider-color）と同じ色
+const SLIDER_COLOR = '#0075ff';   // 与滑块（CSS 的 --slider-color）相同的颜色
 const groundLine = new THREE.Line(new THREE.BufferGeometry(), new THREE.LineDashedMaterial({ color: new THREE.Color(SLIDER_COLOR), dashSize: 0.08, gapSize: 0.06 }));
 scene.add(groundLine);
 const distSprite = makeTextSprite(384, 96, 0.9);
@@ -683,7 +683,7 @@ function updateAll() {
   updateScene3D(c);
 }
 
-/* ======================= カメラ ======================= */
+/* ======================= 相机 ======================= */
 const cam = { theta: 0.35, phi: 0.5, dist: 3.6, tTheta: 0.35, tPhi: 0.5, tDist: 3.6 };
 let viewMode = 'persp';
 const camTarget = new THREE.Vector3(0.35, 0.8, 0);
@@ -751,7 +751,7 @@ function animate() {
   renderer.render(scene, camera);
 }
 
-/* ======================= ポインタ操作 ======================= */
+/* ======================= 指针操作 ======================= */
 const dom = renderer.domElement;
 const ray = new THREE.Raycaster();
 const ndc = new THREE.Vector2();
@@ -844,11 +844,11 @@ window.addEventListener('resize', () => {
   viewKey = '';
 });
 
-/* ======================= パネル・入力 ======================= */
+/* ======================= 面板・输入 ======================= */
 $('panelHeader').addEventListener('click', () => {
   const panel = $('ui-panel');
   panel.classList.toggle('collapsed');
-  $('toggle-text').textContent = panel.classList.contains('collapsed') ? '開く' : '閉じる';
+  $('toggle-text').textContent = panel.classList.contains('collapsed') ? '展开' : '收起';
 });
 
 ['L', 'S'].forEach(k => {
@@ -887,7 +887,7 @@ $('swapAB').addEventListener('click', () => {
 });
 $('shareBtn').addEventListener('click', () => {
   const nA = names.L || 'A', nB = names.S || 'B';
-  const text = `${nA}(${(+heights.L).toFixed(1)}cm)と${nB}(${(+heights.S).toFixed(1)}cm)の声の聞こえ方をシミュレーション！\n#聞こえ方シミュレーター\n`;
+  const text = `${nA}(${(+heights.L).toFixed(1)}cm) 和 ${nB}(${(+heights.S).toFixed(1)}cm)的声音听起来会怎样！\n#听觉差模拟器\n`;
   window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, '_blank');
 });
 
@@ -897,7 +897,7 @@ function bindRange(id, fmt, fn) {
   el.addEventListener('input', f); f();
 }
 
-/* ======================= 再生制御 ======================= */
+/* ======================= 播放控制 ======================= */
 let curSrc = null, micStream = null, micNode = null, micAn = null, micRaf = 0;
 let fileEl = null, fileSrc = null, fileUrl = null, fileName = '';
 const status = t => $('status').textContent = t || '';
@@ -912,14 +912,14 @@ function playBuffer(buf) {
   const s = ac.createBufferSource();
   s.buffer = buf; s.loop = $('loop').checked;
   s.connect(voiceIn);
-  s.onended = () => { if (curSrc === s) { curSrc = null; status('再生完了'); } };
+  s.onended = () => { if (curSrc === s) { curSrc = null; status('播放结束'); } };
   s.start();
   curSrc = s;
-  status('再生中…');
+  status('播放中…');
 }
-$('stop').addEventListener('click', () => { stopAll(); stopMic(true); fileStop(); status('停止しました'); });
+$('stop').addEventListener('click', () => { stopAll(); stopMic(true); fileStop(); status('已停止'); });
 
-/* ---------- タブ ---------- */
+/* ---------- 标签页 ---------- */
 const tabs = { Tts: 'paneTts', Mic: 'paneMic', File: 'paneFile' };
 Object.keys(tabs).forEach(k => $('tab' + k).addEventListener('click', () => {
   Object.keys(tabs).forEach(j => {
@@ -935,7 +935,7 @@ $('engine').addEventListener('change', () => {
   $('fmBox').classList.toggle('hide', e !== 'fm');
 });
 
-/* ---------- 簡易フォルマント音声 ---------- */
+/* ---------- 简易共振峰语音 ---------- */
 const KANA = {};
 Object.entries({ '': 'あいうえお', k: 'かきくけこ', s: 'さしすせそ', t: 'たちつてと', n: 'なにぬねの', h: 'はひふへほ',
    m: 'まみむめも', r: 'らりるれろ', g: 'がぎぐげご', z: 'ざじずぜぞ', d: 'だぢづでど', b: 'ばびぶべぼ', p: 'ぱぴぷぺぽ' })
@@ -949,7 +949,7 @@ function toMoras(text) {
   const last = () => { for (let i = out.length - 1; i >= 0; i--) if (!out[i].pause) return out[i]; return null; };
   for (let ch of text) {
     const code = ch.codePointAt(0);
-    if (code >= 0x30A1 && code <= 0x30F6) ch = String.fromCodePoint(code - 0x60);   // カタカナ→ひらがな
+    if (code >= 0x30A1 && code <= 0x30F6) ch = String.fromCodePoint(code - 0x60);   // 片假名→平假名
     if (KANA[ch]) { out.push({ c: KANA[ch][0], v: KANA[ch][1] }); continue; }
     if (SMALL_Y[ch]) { const m = last(); if (m) { m.v = SMALL_Y[ch]; m.gl = 'y'; } continue; }
     if (SMALL_V[ch]) { const m = last(); if (m) m.v = SMALL_V[ch]; continue; }
@@ -970,7 +970,7 @@ function toMoras(text) {
   return { moras: out, skipped };
 }
 
-/* ---------- 音声合成（日本語・韓国語）---------- */
+/* ---------- 语音合成（日语・韩语）---------- */
 let fmLang = 'ja';
 const FM = { a:[800,1250,2600], i:[300,2300,3000], u:[350,1350,2300], e:[500,1950,2600], o:[500,900,2500],
   A:[620,1050,2500], W:[330,1350,2350], N:[250,1000,2200] };
@@ -999,10 +999,10 @@ function fixC(c, v) {
   return c;
 }
 
-/* ---------- 韓国語：ハングル → 音 ---------- */
+/* ---------- 韩语：谚文 → 音 ---------- */
 const KO_INI = ['g','kk','n','d','tt','r','m','b','pp','s','ss','','j','jj','ch','kh','th','ph','h'];
 const KO_MED = [['','a'],['','e'],['y','a'],['y','e'],['','A'],['','e'],['y','A'],['y','e'],['','o'],['w','a'],['w','e'],['w','e'],['y','o'],['','u'],['w','A'],['w','e'],['w','i'],['y','u'],['','W'],['','W'],['','i']];
-// [次が子音/語末のときの終声, 母音が続くとき残る音, 母音が続くとき次へ移る音]
+// [后接辅音/位于词尾时的终声, 后接元音时保留的音, 后接元音时移到后面的音]
 const KO_FIN = [['','',''],['k','','g'],['k','','kk'],['k','k','ss'],['n','','n'],['n','n','j'],['n','n',''],['t','','d'],['l','','r'],['k','l','g'],['m','l','m'],['l','l','b'],['l','l','ss'],['l','l','th'],['p','l','ph'],['l','l',''],['m','','m'],['p','','b'],['p','p','ss'],['t','','s'],['t','','ss'],['N','N',''],['t','','j'],['t','','ch'],['k','','kh'],['t','','th'],['p','','ph'],['t','','']];
 const KO_TENSE = { g:'kk', d:'tt', b:'pp', s:'ss', j:'jj' };
 const KO_LEN = { g:['g','k'], d:['d','t'], b:['b','p'], j:['j','C'] };
@@ -1024,7 +1024,7 @@ function toKoMoras(text) {
     let ini = it.carry !== undefined ? it.carry : it.i, fin = '';
     if (it.f) {
       const [cons, stay, move] = KO_FIN[it.f];
-      if (ns && ns.i === '' && ns.carry === undefined) { fin = stay; ns.carry = move; }   // 連音
+      if (ns && ns.i === '' && ns.carry === undefined) { fin = stay; ns.carry = move; }   // 连音化
       else {
         fin = cons;
         if (ns) {
@@ -1032,11 +1032,11 @@ function toKoMoras(text) {
           if (stop && (ni === 'n' || ni === 'm')) fin = { k: 'N', t: 'n', p: 'm' }[fin];   // 鼻音化
           else if (fin === 'n' && ni === 'r') { fin = 'l'; ns.carry = 'r'; }
           else if (fin === 'l' && ni === 'n') ns.carry = 'r';
-          else if (stop && KO_TENSE[ni]) ns.carry = KO_TENSE[ni];                          // 濃音化
+          else if (stop && KO_TENSE[ni]) ns.carry = KO_TENSE[ni];                          // 紧音化
         }
       }
     }
-    if (KO_LEN[ini]) ini = KO_LEN[ini][voiced ? 0 : 1];   // 母音に挟まれた平音は濁る
+    if (KO_LEN[ini]) ini = KO_LEN[ini][voiced ? 0 : 1];   // 夹在元音之间的平音会浊化
     const [gl, v] = it.m, u = { c: ini, v };
     if (gl) u.gl = gl;
     if (u.c === 's' && (v === 'i' || gl === 'y')) u.c = 'S';
@@ -1047,7 +1047,7 @@ function toKoMoras(text) {
   return { moras: out, skipped };
 }
 
-/* ---------- 前処理（子音の補正・母音の無声化・声の高さの流れ）---------- */
+/* ---------- 预处理（辅音校正・元音清化・音调走势）---------- */
 function prep(units, ja) {
   if (ja) {
     units.forEach(u => { if (!u.pause) u.c = fixC(u.c, u.v); });
@@ -1065,14 +1065,14 @@ function prep(units, ja) {
     while (j < units.length && !isBreak(units[j])) { if (!units[j].pause && !units[j].fin) body.push(units[j]); j++; }
     const q = units[j] && units[j].q, n = body.length;
     body.forEach((u, k) => {
-      let f = k === 0 ? 0.96 : 1.10 - 0.25 * ((k - 1) / Math.max(1, n - 2));   // 文頭で上がり、だんだん下がる
-      if (q && k === n - 1) f *= 1.28;                                          // 疑問文は語尾を上げる
+      let f = k === 0 ? 0.96 : 1.10 - 0.25 * ((k - 1) / Math.max(1, n - 2));   // 句首抬高，随后逐渐下降
+      if (q && k === n - 1) f *= 1.28;                                          // 疑问句句尾上扬
       u.f = f;
     });
     i = j + 1;
   }
 }
-function cd(u) {   // 子音部の長さ [秒]
+function cd(u) {   // 辅音部分的长度 [秒]
   const s = CS[u.c]; let d = 0;
   if (s) d = { st: (s.cl || .045) + .012 + (s.asp || 0), vs: .05, fr: s.d, af: (s.cl || .035) + (s.d || 0), va: .08, vf: .07, as: .06, na: .065, la: .05, fl: .03, gl: .05 }[s.t] || 0;
   return d + (u.gl ? .05 : 0);
@@ -1081,7 +1081,7 @@ function cd(u) {   // 子音部の長さ [秒]
 async function formantSynth(text, f0, rate) {
   const ja = fmLang !== 'ko';
   const { moras: units, skipped } = ja ? toMoras(text) : toKoMoras(text);
-  if (!units.some(u => !u.pause)) throw new Error(ja ? '読める文字（ひらがな・カタカナ・ローマ字）がありません。' : '読める文字（ハングル）がありません。');
+  if (!units.some(u => !u.pause)) throw new Error(ja ? '没有可朗读的文字（平假名・片假名・罗马字）。' : '没有可朗读的文字（谚文）。');
   prep(units, ja);
   const sr = 44100, md = 0.14 / rate;
   let total = 0;
@@ -1089,14 +1089,14 @@ async function formantSynth(text, f0, rate) {
   const ctx = new OfflineAudioContext(1, Math.ceil((total + 0.6) * sr), sr);
   const out = ctx.createGain(); out.gain.value = 6; out.connect(ctx.destination);
 
-  // 声帯の音（高音がなだらかに弱くなる波形）＋ゆらぎ
+  // 声带音（高音平缓衰减的波形）＋抖动
   const re = new Float32Array(41), im = new Float32Array(41);
   for (let n = 1; n <= 40; n++) im[n] = 1 / Math.pow(n, 1.15);
   const osc = ctx.createOscillator(); osc.setPeriodicWave(ctx.createPeriodicWave(re, im)); osc.frequency.value = f0;
   const lfo = ctx.createOscillator(); lfo.frequency.value = 5.2;
   const lg = ctx.createGain(); lg.gain.value = f0 * 0.006; lfo.connect(lg); lg.connect(osc.frequency);
   const amp = ctx.createGain(); amp.gain.value = 0; osc.connect(amp);
-  // ノイズ（息・摩擦・破裂）
+  // 噪音（气息・摩擦・爆破）
   const nb = ctx.createBuffer(1, sr, sr), nd = nb.getChannelData(0);
   for (let i = 0; i < sr; i++) nd[i] = Math.random() * 2 - 1;
   const ns = ctx.createBufferSource(); ns.buffer = nb; ns.loop = true;
@@ -1119,11 +1119,11 @@ async function formantSynth(text, f0, rate) {
     const f = u.f || lastF; lastF = f;
     T(osc.frequency, f0 * f * (TENSE.test(u.c || '') ? 1.06 : 1), t, .035);
     const s = CS[u.c];
-    if (u.fin) {   // 韓国語の終声（パッチム）
+    if (u.fin) {   // 韩语的终声（收音）
       if (s && (s.t === 'na' || s.t === 'la')) {
         setF(u.c === 'l' ? [420, 1000, 2400] : [250, LOC[u.c] || 1700, 2300], t, .02);
         T(amp.gain, .5, t, .02); T(amp.gain, 0, t + u.d - .02, .015);
-      } else T(amp.gain, 0, t, .012);   // 閉じて止める（破裂させない）
+      } else T(amp.gain, 0, t, .012);   // 闭合收住（不发出爆破音）
       t += u.d; return;
     }
     const F = FM[u.v] || FM.a, g0 = u.gl ? .05 : 0, c0 = cd(u) - g0, loc = LOC[u.c] || 1700, pre = [300, loc, F[2]];
@@ -1157,7 +1157,7 @@ async function formantSynth(text, f0, rate) {
     let tv = t + c0;
     if (u.gl) { setF(u.gl === 'y' ? [300, 2300, 3000] : [330, 800, 2300], tv, .012); T(amp.gain, .8, tv, .01); tv += g0; }
     setF(F, tv, .025);
-    if (u.dev) {   // 無声化した母音（息だけで「き」「す」などを出す）
+    if (u.dev) {   // 清化的元音（仅靠气息发出「き」「す」等）
       T(amp.gain, 0, tv, .008); T(hn.gain, 1.0, tv, .008); T(hn.gain, .02, t + u.d - .01, .01);
     } else {
       T(amp.gain, u.v === 'N' ? .5 : (u.v === 'i' || u.v === 'u') ? .85 : 1, tv, .012); T(hn.gain, .02, tv, .02);
@@ -1175,7 +1175,7 @@ async function formantSynth(text, f0, rate) {
   return { buf, skipped };
 }
 
-/* ---------- 元の日本語の声（シンプルなフォルマント合成） ---------- */
+/* ---------- 原生日语声线（简易共振峰合成） ---------- */
 const FORMANTS = {
   a: [800, 1200, 2500], i: [300, 2300, 3000], u: [350, 1300, 2300],
   e: [500, 1900, 2500], o: [500, 900, 2500], N: [250, 1000, 2200],
@@ -1184,7 +1184,7 @@ const UNVOICED = { k: 1800, s: 7000, t: 4500, h: 2500, p: 900, c: 5000, f: 2500 
 const VOICED_C = new Set(['m','n','r','y','w','b','d','g','z','j','v','l']);
 async function formantSynthOld(text, f0, rate, pre) {
   const { moras, skipped } = pre || toMoras(text);
-  if (!moras.some(m => !m.pause)) throw new Error('読める文字（ひらがな/カタカナ/ローマ字）がありません。');
+  if (!moras.some(m => !m.pause)) throw new Error('没有可朗读的文字（平假名/片假名/罗马字）。');
   const sr = 44100, md = 0.16 / rate;
   let total = 0;
   for (const m of moras) total += m.pause ? m.pause : md;
@@ -1199,7 +1199,7 @@ async function formantSynthOld(text, f0, rate, pre) {
     const gn = ctx.createGain(); gn.gain.value = [1.0, 0.7, 0.4][i];
     amp.connect(f); f.connect(gn); gn.connect(out); return f;
   });
-  // 無声子音用ノイズ
+  // 清辅音用的噪音
   const nb = ctx.createBuffer(1, sr, sr), nd = nb.getChannelData(0);
   for (let i = 0; i < sr; i++) nd[i] = Math.random() * 2 - 1;
   const ns = ctx.createBufferSource(); ns.buffer = nb; ns.loop = true;
@@ -1246,7 +1246,7 @@ async function formantSynthOld(text, f0, rate, pre) {
   return { buf, skipped };
 }
 
-/* ---------- 韓国語を元の声（シンプル合成）で読むための変換 ---------- */
+/* ---------- 为用原生声线（简易合成）朗读韩语而做的转换 ---------- */
 const KO2OLD_C = { kk:'k', kh:'k', k:'k', g:'g', tt:'t', th:'t', t:'t', T:'t', d:'d', pp:'p', ph:'p', p:'p', b:'b',
   ss:'s', s:'s', S:'s', C:'c', ch:'c', jj:'j', j:'j', h:'h', m:'m', n:'n', N:'n', r:'r', l:'r', y:'y', w:'w' };
 const KO2OLD_V = { A: 'o', W: 'u' };
@@ -1255,15 +1255,15 @@ function koOldMoras(text) {
   const out = [];
   for (const u of moras) {
     if (u.pause) { out.push({ pause: u.pause }); continue; }
-    if (u.fin) { if (u.c === 'm' || u.c === 'n' || u.c === 'N') out.push({ c: '', v: 'N' }); continue; }   // 終声は鼻音だけ「ん」で残す
+    if (u.fin) { if (u.c === 'm' || u.c === 'n' || u.c === 'N') out.push({ c: '', v: 'N' }); continue; }   // 终声只保留鼻音「ん」保留下来
     let c = KO2OLD_C[u.c] || '';
-    if (!c && u.gl) c = u.gl;                                     // ヤ行・ワ行
+    if (!c && u.gl) c = u.gl;                                     // や行・わ行
     out.push({ c, v: KO2OLD_V[u.v] || u.v });
   }
   return { moras: out, skipped };
 }
 
-/* ---------- 数字→読み（漢字は入力できないので辞書は使わない） ---------- */
+/* ---------- 数字→读法（因为不能输入汉字，所以不使用词典） ---------- */
 const DIGITS = ['ぜろ','いち','に','さん','よん','ご','ろく','なな','はち','きゅう'];
 const KO_DIGITS = ['영','일','이','삼','사','오','육','칠','팔','구'];
 function toReading(text) {
@@ -1271,7 +1271,7 @@ function toReading(text) {
   return text.normalize('NFKC').replace(/[0-9]/g, d => D[+d]);
 }
 
-/* ---------- 漢字を入力させない ---------- */
+/* ---------- 禁止输入汉字 ---------- */
 const KANJI_G = /[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF々〆]/g;
 function stripKanji(el) {
   const v = el.value;
@@ -1280,7 +1280,7 @@ function stripKanji(el) {
   const pos = el.selectionStart == null ? out.length : v.slice(0, el.selectionStart).replace(KANJI_G, '').length;
   el.value = out;
   try { el.setSelectionRange(pos, pos); } catch (_) {}
-  status('漢字は入力できないため取り除きました。ひらがな・カタカナで入力してください');
+  status('由于无法输入汉字，已将其移除。请用平假名・片假名输入');
   return true;
 }
 $('text').addEventListener('input', e => { if (!e.isComposing) stripKanji($('text')); });
@@ -1288,8 +1288,8 @@ $('text').addEventListener('compositionend', () => stripKanji($('text')));
 stripKanji($('text'));
 
 /* ---------- WebSpeechAPI ----------
-   speechSynthesis の音は WebAudio に直接つなげないため、
-   「タブ音声の共有(getDisplayMedia)」で取り込み、ストリームを WebAudio の入口(voiceIn)へ流す。 */
+   由于 speechSynthesis 的声音无法直接接入 WebAudio，
+   因此通过「标签页音频共享(getDisplayMedia)」采集，再把音频流送入 WebAudio 的入口(voiceIn)。 */
 const hasSpeech = 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
 let capStream = null, capSrc = null, capGain = null, speechActive = false, speechToken = 0;
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -1298,11 +1298,11 @@ function loadVoices() {
   if (!hasSpeech) return;
   const sel = $('wsVoice'), cur = sel.value;
   const all = speechSynthesis.getVoices();
-  sel.innerHTML = '<option value="">自動（日本語の声）</option>';
+  sel.innerHTML = '<option value="">自动（日语声线）</option>';
   all.forEach((v, i) => {
     if (!/^ja/i.test(v.lang)) return;
     const o = document.createElement('option');
-    o.value = String(i); o.textContent = v.name + (v.localService ? '' : '（オンライン）');
+    o.value = String(i); o.textContent = v.name + (v.localService ? '' : '（在线）');
     sel.appendChild(o);
   });
   if ([...sel.options].some(o => o.value === cur)) sel.value = cur;
@@ -1311,25 +1311,25 @@ if (hasSpeech) { loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; }
 
 async function ensureCapture() {
   if (capStream && capStream.getAudioTracks().some(t => t.readyState === 'live')) return;
-  if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) throw new Error('この端末・ブラウザはタブ音声の共有に対応していません');
-  status('共有ダイアログで「このタブ」を選び、「タブの音声も共有」にチェックしてください');
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) throw new Error('此设备・浏览器不支持标签页音频共享');
+  status('请在共享对话框中选择「这个标签页」并勾选「同时分享标签页音频」');
   let st;
   try {
     st = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true, preferCurrentTab: true, selfBrowserSurface: 'include' });
-  } catch (e) { throw new Error('共有が許可されませんでした'); }
+  } catch (e) { throw new Error('未获得共享权限'); }
   const at = st.getAudioTracks();
-  if (!at.length) { st.getTracks().forEach(t => t.stop()); throw new Error('タブの音声が共有されませんでした'); }
-  st.getVideoTracks().forEach(t => t.stop());   // 映像は使わない
+  if (!at.length) { st.getTracks().forEach(t => t.stop()); throw new Error('标签页音频未被共享'); }
+  st.getVideoTracks().forEach(t => t.stop());   // 不使用影像
   capStream = new MediaStream(at);
   at[0].addEventListener('ended', () => { capStream = null; });
   try { capSrc && capSrc.disconnect(); } catch (_) {}
   capSrc = ac.createMediaStreamSource(capStream);
-  capGain = ac.createGain(); capGain.gain.value = 0;   // 読み上げ中だけ開ける（ハウリング防止）
+  capGain = ac.createGain(); capGain.gain.value = 0;   // 仅在朗读时打开（防止啸叫）
   capSrc.connect(capGain); capGain.connect(voiceIn);
 }
 
 async function speakWithSpeech(text) {
-  if (!hasSpeech) throw new Error('このブラウザは読み上げ（WebSpeechAPI）に対応していません');
+  if (!hasSpeech) throw new Error('此浏览器不支持朗读（WebSpeechAPI）');
   ensureAudio();
   await ensureCapture();
   stopAll();
@@ -1346,18 +1346,18 @@ async function speakWithSpeech(text) {
     u.pitch = +$('wsPitch').value / 100;
     u.onend = () => {
       if (my !== speechToken) return;
-      if ($('loop').checked) run(); else { endSpeech(); status('再生完了'); }
+      if ($('loop').checked) run(); else { endSpeech(); status('播放结束'); }
     };
     u.onerror = e => {
       if (my !== speechToken || e.error === 'canceled' || e.error === 'interrupted') return;
-      endSpeech(); status('読み上げエラー: ' + e.error);
+      endSpeech(); status('朗读出错: ' + e.error);
     };
     speechSynthesis.speak(u);
   };
   speechSynthesis.cancel();
   await sleep(60);
   run();
-  status('再生中…（ブラウザ読み上げ）\n音が出ない・重なる場合は「WebAudio合成」を使ってください');
+  status('播放中…（浏览器朗读）\n若没有声音或与原声重叠，请改用「WebAudio 合成」');
 }
 function endSpeech() {
   const my = speechToken;
@@ -1370,25 +1370,25 @@ function stopSpeech() {
   if (capGain && ac) capGain.gain.setTargetAtTime(0, ac.currentTime, 0.02);
 }
 
-/* ---------- WebAudio合成に切り替わったときの通知 ---------- */
+/* ---------- 切换到 WebAudio 合成时的提示 ---------- */
 function hideFallback() { $('fallbackNote').classList.add('hide'); }
 function showFallback(fromName, why) {
   const sel = $('engine');
-  sel.value = 'fm'; sel.dispatchEvent(new Event('change'));   // 画面の選択も「WebAudio合成」に合わせる
+  sel.value = 'fm'; sel.dispatchEvent(new Event('change'));   // 让界面上的选项也切换到「WebAudio 合成」
   const box = $('fallbackNote');
-  box.innerHTML = '⚠️ ' + fromName + ' を使えなかったため、<b>WebAudio合成（ロボット声）</b>に切り替えて再生しました。声が違って聞こえるのはこのためです。'
-    + '<small>原因: <span id="fbWhy"></span><br>もう一度試すときは、上の選択肢から選び直してください。</small>';
+  box.innerHTML = '⚠️ ' + fromName + ' 无法使用，因此已切换到<b>WebAudio 合成（机械音）</b>播放。听起来声音不一样就是这个原因。'
+    + '<small>原因: <span id="fbWhy"></span><br>再次尝试时，请从上面的选项中重新选择。</small>';
   $('fbWhy').textContent = why;
   box.classList.remove('hide');
 }
 
-/* ---------- 再生ボタン ---------- */
+/* ---------- 播放按钮 ---------- */
 let speakBusy = false;
 $('speak').addEventListener('click', async () => {
-  if (speakBusy) return;   // 処理中の連打は無視
+  if (speakBusy) return;   // 忽略处理过程中的连点
   stripKanji($('text'));
   const text = $('text').value.trim();
-  if (!text) { status('テキストを入力してください（漢字は使えません）'); return; }
+  if (!text) { status('请输入文本（不能使用汉字）'); return; }
   speakBusy = true;
   hideFallback();
   const speakBtn = $('speak');
@@ -1398,17 +1398,17 @@ $('speak').addEventListener('click', async () => {
     let warn = '', fb = null;
     if ($('engine').value === 'speech') {
       try { await speakWithSpeech(text); return; }
-      catch (e) { stopSpeech(); fb = ['ブラウザ読み上げ', e.message || String(e)]; }
+      catch (e) { stopSpeech(); fb = ['浏览器朗读', e.message || String(e)]; }
     }
     {
       const reading = toReading(text);
-      status('音声を合成中…');
-      const { buf, skipped } = await formantSynthOld(reading, +$('pitch').value, +$('rate').value / 100, fmLang === 'ko' ? koOldMoras(reading) : null);   // 日本語も韓国語も元の声
+      status('正在合成语音…');
+      const { buf, skipped } = await formantSynthOld(reading, +$('pitch').value, +$('rate').value / 100, fmLang === 'ko' ? koOldMoras(reading) : null);   // 日语与韩语都用原生声线
       playBuffer(buf);
       const notes = [];
       if (warn) notes.push(warn);
-      if (skipped) notes.push('（読めない文字が ' + skipped + ' 個あったのでスキップしました。ひらがな・カタカナ（韓国語はハングル）で入力してください）');
-      status('再生中…（WebAudio合成・ロボット声）' + (notes.length ? '\n' + notes.join('\n') : ''));
+      if (skipped) notes.push('（有 ' + skipped + ' 个字符无法朗读，已跳过。请用平假名・片假名（韩语请用谚文）输入）');
+      status('播放中…（WebAudio 合成・机械音）' + (notes.length ? '\n' + notes.join('\n') : ''));
       if (fb) showFallback(fb[0], fb[1]);
     }
   } catch (e) {
@@ -1419,9 +1419,9 @@ $('speak').addEventListener('click', async () => {
   }
 });
 
-/* ---------- マイク ---------- */
-const REC_MAX = 30;                 // 録音の最大秒数
-let rec = null;                     // 録音中の状態
+/* ---------- 麦克风 ---------- */
+const REC_MAX = 30;                 // 录音的最大秒数
+let rec = null;                     // 录音时的状态
 async function startMic() {
   if (micStream) return true;
   try {
@@ -1431,10 +1431,10 @@ async function startMic() {
     });
     micNode = ac.createMediaStreamSource(micStream);
     micNode.connect(voiceIn);
-    status('マイク入力中…（ヘッドホン必須）');
+    status('麦克风输入中…（请务必戴上耳机）');
     syncPlayer();
     return true;
-  } catch (e) { micStream = null; status('マイクを使えません: ' + e.message); return false; }
+  } catch (e) { micStream = null; status('无法使用麦克风: ' + e.message); return false; }
 }
 function stopMic(silent) {
   if (rec) finishRec(true);
@@ -1442,7 +1442,7 @@ function stopMic(silent) {
   micStream.getTracks().forEach(t => t.stop());
   try { micNode.disconnect(); } catch(_){}
   micStream = micNode = null;
-  if (!silent) status('マイクをオフにしました');
+  if (!silent) status('已关闭麦克风');
 }
 
 /* ---------- 録音（最大30秒） ---------- */
@@ -1462,7 +1462,7 @@ function encodeWav(chunks, n, sr) {
 }
 function recUI(on) {
   const b = $('recBtn');
-  b.textContent = on ? '■ 録音を止める' : '🎤 録音する（最大30秒）';
+  b.textContent = on ? '■ 停止录音' : '🎤 录音（最长 30 秒）';
   b.classList.toggle('on', on);
   if (!on) $('recBar').style.width = '0%';
 }
@@ -1477,7 +1477,7 @@ function startRec() {
   if (!micStream || rec) return;
   const sr = ac.sampleRate, max = Math.floor(REC_MAX * sr);
   const proc = ac.createScriptProcessor(4096, 1, 1);
-  const mute = ac.createGain(); mute.gain.value = 0;      // 無音で出力につなぐ（動作させるため）
+  const mute = ac.createGain(); mute.gain.value = 0;      // 以静音方式接入输出（为了让它正常工作）
   rec = { chunks: [], n: 0, proc, mute, sr };
   proc.onaudioprocess = e => {
     if (!rec) return;
@@ -1497,13 +1497,13 @@ function finishRec(fromStopMic, hitMax) {
   try { micNode && micNode.disconnect(r.proc); } catch(_){}
   try { r.proc.disconnect(); r.mute.disconnect(); } catch(_){}
   recUI(false);
-  if (r.n < r.sr * 0.2) { $('recInfo').textContent = '録音が短すぎました。もう一度どうぞ。'; syncPlayer(); if (!fromStopMic) stopMic(true); return; }
+  if (r.n < r.sr * 0.2) { $('recInfo').textContent = '录音太短了，请再试一次。'; syncPlayer(); if (!fromStopMic) stopMic(true); return; }
   if (srcs.Mic) URL.revokeObjectURL(srcs.Mic.url);
   srcs.Mic = { url: URL.createObjectURL(encodeWav(r.chunks, r.n, r.sr)), name: '🎙 録音 ' + fmtTime(r.n / r.sr) };
-  $('recInfo').textContent = '録音できました（' + fmtTime(r.n / r.sr) + '）。▶で再生できます。';
-  if (!fromStopMic) stopMic(true);     // 録音が終わったらマイクを切る（ライブ音と再生が混ざらないように）
+  $('recInfo').textContent = '录音完成（' + fmtTime(r.n / r.sr) + '）。按 ▶ 即可播放。';
+  if (!fromStopMic) stopMic(true);     // 录音结束后关闭麦克风（避免实时声与播放声混杂）
   loadSource('Mic');
-  status(hitMax ? REC_MAX + '秒に達したので録音を終了しました' : '録音しました');
+  status(hitMax ? REC_MAX + '秒，已结束录音' : '录音完成');
 }
 $('recBtn').addEventListener('click', async () => {
   if (rec) { finishRec(); return; }
@@ -1511,7 +1511,7 @@ $('recBtn').addEventListener('click', async () => {
   startRec();
 });
 
-/* ---------- プレイヤー（音声ファイル・録音 共通） ---------- */
+/* ---------- 播放器（音频文件・录音 通用） ---------- */
 const MIME_BY_EXT = { mp3: 'audio/mpeg', m4a: 'audio/mp4', aac: 'audio/aac', wav: 'audio/wav', ogg: 'audio/ogg', oga: 'audio/ogg',
   opus: 'audio/ogg', flac: 'audio/flac', weba: 'audio/webm', webm: 'audio/webm' };
 const fmtTime = s => {
@@ -1520,7 +1520,7 @@ const fmtTime = s => {
   const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
   return (h ? h + ':' + String(m).padStart(2, '0') : m) + ':' + String(sec).padStart(2, '0');
 };
-const srcs = { File: null, Mic: null };   // タブごとの再生元 {url, name}
+const srcs = { File: null, Mic: null };   // 各标签页的播放源 {url, name}
 let loadedKey = null, seeking = false, fileGain = null;
 
 function ensureFileEl() {
@@ -1529,16 +1529,16 @@ function ensureFileEl() {
   fileEl = new Audio();
   fileEl.preload = 'auto';
   fileEl.loop = $('loop').checked;
-  fileSrc = ac.createMediaElementSource(fileEl);   // 1つの要素を使い回す（1回しか作れないため）
-  fileGain = ac.createGain();                       // 音量はここで調整（<audio>のvolumeは効かない端末があるため）
+  fileSrc = ac.createMediaElementSource(fileEl);   // 复用同一个元素（因为只能创建一次）
+  fileGain = ac.createGain();                       // 音量在这里调整（部分设备上 <audio> 的 volume 无效）
   fileGain.gain.value = Math.pow(+$('pVol').value / 100, 2);
   fileSrc.connect(fileGain); fileGain.connect(voiceIn);
   ['play', 'pause', 'ended', 'loadedmetadata', 'durationchange', 'timeupdate', 'seeked'].forEach(ev => fileEl.addEventListener(ev, syncPlayer));
-  fileEl.addEventListener('ended', () => { if (!fileEl.loop) status('再生完了'); });
+  fileEl.addEventListener('ended', () => { if (!fileEl.loop) status('播放结束'); });
   fileEl.addEventListener('error', () => {
     if (!fileUrl) return;
-    status('この音声ファイルは再生できませんでした。MP3・M4A・WAV・OGG などをお試しください。');
-    $('fname').textContent = '⚠️ 読み込めませんでした: ' + fileName;
+    status('无法播放该音频文件。请试试 MP3・M4A・WAV・OGG 等格式。');
+    $('fname').textContent = '⚠️ 无法读取: ' + fileName;
     syncPlayer();
   });
 }
@@ -1551,7 +1551,7 @@ function loadSource(key) {
   if (!s) {
     fileUrl = null; fileName = '';
     fileEl.removeAttribute('src'); fileEl.load();
-    $('fname').textContent = key === 'Mic' ? 'まだ録音がありません' : 'ファイルが選ばれていません';
+    $('fname').textContent = key === 'Mic' ? '还没有录音' : '尚未选择文件';
   } else {
     fileUrl = s.url; fileName = s.name;
     $('fname').textContent = s.name;
@@ -1573,7 +1573,7 @@ function onTabChange(k) {
 
 function syncPlayer() {
   const has = !!(fileEl && fileUrl);
-  const lock = !!rec;                                   // 録音中は操作しない
+  const lock = !!rec;                                   // 录音过程中不进行其他操作
   const dur = has && isFinite(fileEl.duration) ? fileEl.duration : 0;
   const cur = has ? fileEl.currentTime : 0;
   const playing = has && !fileEl.paused && !fileEl.ended;
@@ -1594,7 +1594,7 @@ function filePlay() {
   ensureAudio(); stopAll(true); stopMic(true);
   fileEl.loop = $('loop').checked;
   const p = fileEl.play();
-  if (p && p.catch) p.catch(err => status('再生できません: ' + err.message));
+  if (p && p.catch) p.catch(err => status('无法播放: ' + err.message));
   status('再生中: ' + fileName);
 }
 function filePause() { if (fileEl) { fileEl.pause(); status('一時停止中'); } }
@@ -1606,7 +1606,7 @@ function fileStop() {
 }
 
 $('pPlay').addEventListener('click', () => { if (!fileEl) return; (fileEl.paused || fileEl.ended) ? filePlay() : filePause(); });
-$('pStop').addEventListener('click', () => { fileStop(); status('停止しました'); });
+$('pStop').addEventListener('click', () => { fileStop(); status('已停止'); });
 
 const seekEl = $('seek');
 const seekTo = () => {
@@ -1634,12 +1634,12 @@ $('file').addEventListener('change', e => {
   const f = e.target.files[0]; if (!f) return;
   ensureFileEl(); stopAll(); stopMic(true);
   if (srcs.File) URL.revokeObjectURL(srcs.File.url);
-  // MIMEが空・不正なMP3などでも読めるよう、拡張子から種類を補う
+  // 为了让 MIME 为空或不规范的 MP3 也能读取，从扩展名补全类型
   const ext = (f.name.split('.').pop() || '').toLowerCase();
   const type = f.type && f.type.startsWith('audio/') ? f.type : (MIME_BY_EXT[ext] || f.type || 'audio/mpeg');
   srcs.File = { url: URL.createObjectURL(new Blob([f], { type })), name: '🎵 ' + f.name };
   loadSource('File');
-  filePlay();   // 選んだらすぐ再生
+  filePlay();   // 选好后立即播放
 });
 
 
@@ -1657,11 +1657,11 @@ function setLang(l) {
   const old = fmLang, t = $('text'); fmLang = l;
   $('langJa').classList.toggle('sel', l === 'ja'); $('langKo').classList.toggle('sel', l === 'ko');
   if (old !== l && (!t.value.trim() || t.value.trim() === LANG_DEF[old])) t.value = LANG_DEF[l];
-  t.placeholder = l === 'ko' ? 'ハングルで入力' : 'ひらがな・カタカナで入力';
+  t.placeholder = l === 'ko' ? '请用谚文输入' : '请用平假名・片假名输入';
 }
 $('langJa').addEventListener('click', () => setLang('ja'));
 $('langKo').addEventListener('click', () => setLang('ko'));
-const F0_PRESET = { f0M: 120, f0F: 220 };   // 日本語話者の平均的な基本周波数の目安 [Hz]
+const F0_PRESET = { f0M: 120, f0F: 220 };   // 日语说话者平均基频的参考值 [Hz]
 const syncF0Btns = () => Object.keys(F0_PRESET).forEach(id => $(id).classList.toggle('sel', +$('pitch').value === F0_PRESET[id]));
 Object.keys(F0_PRESET).forEach(id => $(id).addEventListener('click', () => {
   $('pitch').value = F0_PRESET[id];
@@ -1674,6 +1674,73 @@ bindRange('wsPitch', v => (v / 100).toFixed(2));
 setView('persp');
 updateAll();
 animate();
+</script>
+
+<script>
+/* 设置持久化：名字・身高・颜色等会记住，刷新后自动恢复 */
+(function () {
+  var KEY = 'simSettings:' + location.pathname;
+  var SKIP = { seek: 1, pVol: 1 };
+  function list() {
+    var els = document.querySelectorAll('input,select,textarea'), out = [], i, el;
+    for (i = 0; i < els.length; i++) {
+      el = els[i];
+      if (el.type === 'file' || el.type === 'button' || el.type === 'submit' || el.type === 'reset') continue;
+      if (el.id && SKIP[el.id]) continue;
+      out.push(el);
+    }
+    return out;
+  }
+  function keyOf(el) {
+    if (el.id) return 'id:' + el.id;
+    var cn = (el.className || '').split(/\s+/)[0];
+    if (!cn) return null;
+    var sibs = document.querySelectorAll(el.tagName.toLowerCase() + '[class~="' + cn + '"]'), i;
+    for (i = 0; i < sibs.length; i++) if (sibs[i] === el) return 'cls:' + cn + ':' + i;
+    return null;
+  }
+  function get(el) {
+    return (el.type === 'checkbox' || el.type === 'radio') ? el.checked : el.value;
+  }
+  function set(el, v) {
+    var i;
+    if (el.tagName === 'SELECT') {
+      var ok = false;
+      for (i = 0; i < el.options.length; i++) if (el.options[i].value === v) ok = true;
+      if (!ok) return;
+    }
+    if (el.type === 'checkbox' || el.type === 'radio') el.checked = !!v;
+    else el.value = v;
+  }
+  function fire(el, type) {
+    try { el.dispatchEvent(new Event(type, { bubbles: true })); } catch (e) {}
+  }
+  function restore() {
+    var raw = null, data = null, els, k, i;
+    try { raw = localStorage.getItem(KEY); } catch (e) { return; }
+    if (!raw) return;
+    try { data = JSON.parse(raw); } catch (e) { return; }
+    els = list();
+    for (i = 0; i < els.length; i++) { k = keyOf(els[i]); if (k && data[k] !== undefined) set(els[i], data[k]); }
+    for (i = 0; i < els.length; i++) { fire(els[i], 'input'); fire(els[i], 'change'); }
+    for (i = 0; i < els.length; i++) { k = keyOf(els[i]); if (k && data[k] !== undefined) set(els[i], data[k]); }
+  }
+  var timer = null;
+  function save() {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(function () {
+      var els = list(), data = {}, k, i;
+      for (i = 0; i < els.length; i++) { k = keyOf(els[i]); if (k) data[k] = get(els[i]); }
+      try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {}
+    }, 200);
+  }
+  document.addEventListener('input', save, true);
+  document.addEventListener('change', save, true);
+  window.addEventListener('load', restore);
+  window.__simSettings = {
+    clear: function () { try { localStorage.removeItem(KEY); } catch (e) {} }
+  };
+})();
 </script>
 </body>
 </html>
